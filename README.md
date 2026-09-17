@@ -1,18 +1,28 @@
-# Online Retail — ELT Pipeline & RFM Customer Segmentation
 
-A data pipeline project using the [UCI Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail).
+## **Online Retail — ELT Pipeline, RFM & K-Means Segmentation**
+An end-to-end data pipeline and customer segmentation project using the [UCI Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail). 
 
-## Approach
-- **Extract:** Python (`ucimlrepo` / pandas)
-- **Load:** Raw data loaded into PostgreSQL (Supabase)
-- **Transform:** Cleaning (nulls, cancellations, invalid values, duplicates) and RFM
-  aggregation done in SQL — `GROUP BY customer_id` for Recency, Frequency, and Monetary
-- **Score & segment:** Quartile scoring (`pd.qcut`) and rule-based segmentation done in
-  Python, then visualized with matplotlib/seaborn
+The project extracts raw transaction data, loads it into a PostgreSQL database, performs SQL-based RFM aggregation, applies rule-based segmentation, and builds a K-Means clustering model (k=6) to uncover deeper behavioral segments. 
 
-**Tools**: Python, PostgreSQL (Supabase), pandas, matplotlib, seaborn.
+### Architecture & Workflow
+
+**1. Extract & Load**
+- Python (`ucimlrepo` / `pandas`) extracts the raw dataset.
+- Raw transactions are loaded into PostgreSQL.
+
+**2. Transform (SQL)**
+- Data cleaning (handling nulls, cancellations, invalid values, duplicates).
+- RFM aggregation executed in SQL: `GROUP BY customer_id` to calculate Recency, Frequency, and Monetary values.
+
+**3. Rule-Based Segmentation (Python)**
+- Quartile scoring (`pd.qcut`) applied to R, F, and M.
+- Rule-based mapping assigns customers to intuitive segments (e.g., Champions, At Risk, Lost).
+
+**4. K-Means Clustering (Python)**
+- Features scaled using `StandardScaler` within a `make_pipeline`.
+- Hyperparameter tuning: Elbow Method and Silhouette Scores evaluated for `k=2` to `12`.
+- Final model trained with `k=6`, validated by a peak in the Silhouette Score and the flattening of the inertia curve.
+- **New Insight:** K-Means isolated extreme high-value outliers into a dedicated "VIP" cluster (median spend ~$225k) and resolved the "mixed middle" rule-based buckets into distinct actionable groups.
 
 
-## Status
-🚧 In progress — a K-Means clustering comparison against the rule-based RFM segments
-is planned as a next step.
+**Tools**: Python, PostgreSQL, pandas, matplotlib, seaborn, scikit-learn (StandardScaler, KMeans)
