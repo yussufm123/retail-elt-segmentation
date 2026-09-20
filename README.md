@@ -24,5 +24,8 @@ The project extracts raw transaction data, loads it into a PostgreSQL database, 
 - Final model trained with `k=6`, validated by a peak in the Silhouette Score and the flattening of the inertia curve.
 - **New Insight:** K-Means isolated extreme high-value outliers into a dedicated "VIP" cluster (median spend ~$225k) and resolved the "mixed middle" rule-based buckets into distinct actionable groups.
 
+**5. Interactive Dashboard**
+[View the Interactive Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiOWJkYjNmMzktZmFmZi00OGEzLTljNjAtOTRjMjUyY2ZiNTNjIiwidCI6Ijk2MDk5YjY1LTIwMWItNGQ4YS04ZDA1LTQwMjFkZDU3OWI5YiJ9)
 
-**Tools**: Python, PostgreSQL, pandas, matplotlib, seaborn, scikit-learn (StandardScaler, KMeans)
+
+**Tools**: Python, PostgreSQL, pandas, matplotlib, seaborn, scikit-learn (StandardScaler, KMeans), Power BI.
